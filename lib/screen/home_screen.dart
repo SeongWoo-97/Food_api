@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:food_api/constant.dart';
+import 'package:food_api/screen/food_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -22,39 +24,42 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: GridView.builder(
-          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 200,
-              childAspectRatio: 3 / 2,
-              crossAxisSpacing: 20,
-              mainAxisSpacing: 20),
-          itemBuilder: (BuildContext context, index) {
-            return Container(
-              margin: EdgeInsets.only(right: 12.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12.0),
-              ),
+        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 200,
+          childAspectRatio: 1,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 20,
+        ),
+        itemBuilder: (BuildContext context, index) {
+          return Container(
+            margin: EdgeInsets.only(right: 12.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+            child: GestureDetector(
+              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => FoodScreen(FoodType.foodCategory[index]))),
               child: Stack(
                 alignment: Alignment.center,
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(12.0),
                     child: CachedNetworkImage(
-                      imageUrl: 'https://images.unsplash.com/photo-1562967914-01efa7e87832?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1052&q=80',
+                      imageUrl: FoodType.foodURI[index],
                       width: 140.0,
-                      height: 90.0,
+                      height: 120.0,
                       fit: BoxFit.cover,
                     ),
                   ),
                   Container(
                     width: 140.0,
-                    height: 90.0,
+                    height: 120.0,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.0),
                       color: Colors.black54,
                     ),
                   ),
                   Text(
-                    'Chicken',
+                    FoodType.foodCategory[index],
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16.0,
@@ -64,9 +69,15 @@ class _HomePageState extends State<HomePage> {
                   )
                 ],
               ),
-            );
-          }),
-      floatingActionButton: FloatingActionButton(onPressed: () {  },child: Icon(Icons.filter_list_alt),),
+            ),
+          );
+        },
+        itemCount: FoodType.foodCategory.length,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.filter_list_alt),
+      ),
     );
   }
 }
