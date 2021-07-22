@@ -74,10 +74,6 @@ class _HomePageState extends State<HomePage> {
         },
         itemCount: FoodType.foodCategory.length,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(Icons.filter_list_alt),
-      ),
     );
   }
 }
