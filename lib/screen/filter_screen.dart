@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:food_api/model/filter_model.dart';
 
 class FilterScreen extends StatefulWidget {
   @override
@@ -50,7 +49,7 @@ class _FilterScreenState extends State<FilterScreen> {
     return List.generate(optionList[i].length, (index) {
       return FilterChip(
         label: Text(optionList[i][index]),
-        elevation: 10,
+        elevation: 0,
         pressElevation: 5,
         selected: this.selected[i][index],
         onSelected: (bool selected) {
@@ -70,8 +69,7 @@ class _FilterScreenState extends State<FilterScreen> {
   @override
   void initState() {
     super.initState();
-    int i;
-    for (i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       for (int j = 0; j < optionList[i].length; j++) {
         selected[i].add(false);
       }
@@ -99,9 +97,12 @@ class _FilterScreenState extends State<FilterScreen> {
                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  Wrap(
-                    children: buildChip(0),
-                    spacing: 7,
+                  Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    child: Wrap(
+                      children: buildChip(0),
+                      spacing: 7,
+                    ),
                   )
                 ],
               ),
@@ -119,9 +120,12 @@ class _FilterScreenState extends State<FilterScreen> {
                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  Wrap(
-                    children: buildChip(1),
-                    spacing: 7,
+                  Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    child: Wrap(
+                      children: buildChip(1),
+                      spacing: 7,
+                    ),
                   )
                 ],
               ),
@@ -159,13 +163,22 @@ class _FilterScreenState extends State<FilterScreen> {
                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  Wrap(
-                    children: buildChip(3),
-                    spacing: 7,
+                  Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    child: Wrap(
+                      children: buildChip(3),
+                      spacing: 7,
+                    ),
                   )
                 ],
               ),
             ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+
+            },
+            child: Text('OK'),
           ),
         ],
       ),
