@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:food_api/screen/result_screen.dart';
 
 class FilterScreen extends StatefulWidget {
+  final foodName;
+
+  FilterScreen(this.foodName);
+
   @override
   _FilterScreenState createState() => _FilterScreenState();
 }
@@ -13,38 +18,8 @@ class _FilterScreenState extends State<FilterScreen> {
     ['Breakfast', 'Dinner', 'Lunch', 'Snack', 'Teatime'],
   ];
   List<List<bool>> selected = [[], [], [], []];
+  List<String> filterName = ['', '', '', ''];
 
-  // FilterModel filterModel = FilterModel();
-  // List<List<bool>> selected = [];
-
-  // List<Widget> buildChips(FilterModel filterModel) {
-  //   List<String> title = filterModel.options;
-  //   List<List<String>> chips = filterModel.optionList;
-  //   selected = List.generate(title.length - 1, (i) => List.generate(chips.length - 1, (j) => this.selected[i][j] = false));
-  //   print(selected);
-  //   return List<Widget>.generate(title.length, (index) {
-  //     return Container(
-  //       width: double.infinity,
-  //       child: Card(
-  //         child: Column(
-  //           children: [
-  //             Padding(
-  //               padding: const EdgeInsets.all(8.0),
-  //               child: Text(
-  //                 title[index],
-  //                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-  //               ),
-  //             ),
-  //             Wrap(
-  //               children: buildChip(index, chips),
-  //               spacing: 7,
-  //             )
-  //           ],
-  //         ),
-  //       ),
-  //     );
-  //   });
-  // }
   List<Widget> buildChip(int i) {
     return List.generate(optionList[i].length, (index) {
       return FilterChip(
@@ -58,6 +33,7 @@ class _FilterScreenState extends State<FilterScreen> {
               this.selected[i][j] = false;
             }
           }
+          filterName[i] = '&' + optionList[i][index];
           setState(() {
             this.selected[i][index] = selected;
           });
@@ -69,7 +45,7 @@ class _FilterScreenState extends State<FilterScreen> {
   @override
   void initState() {
     super.initState();
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < optionList.length; i++) {
       for (int j = 0; j < optionList[i].length; j++) {
         selected[i].add(false);
       }
@@ -176,7 +152,12 @@ class _FilterScreenState extends State<FilterScreen> {
           ),
           ElevatedButton(
             onPressed: () {
-
+              String str = '';
+              for(int i = 0; i < filterName.length;i++){
+                str += filterName[i];
+              }
+              print(str);
+              Navigator.push(context,MaterialPageRoute(builder: (context) => ResultScreen(widget.foodName,str)));
             },
             child: Text('OK'),
           ),

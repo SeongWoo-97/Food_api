@@ -6,9 +6,4 @@ class FilterModel {
     ['American', 'Asian', 'British', 'Caribbean', 'Central Europe', 'Eastern Europe', 'French', 'Italian', 'Japanese', 'Kosher'],
     ['Breakfast', 'Dinner', 'Lunch', 'Snack', 'Teatime'],
   ];
-  // List<bool> selected = [false,false,false];
-
-  FilterModel() {
-    // selected = List.generate(options.length, (index) => selected[index] = false);
-  }
 }

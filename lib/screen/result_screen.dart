@@ -2,41 +2,39 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:food_api/model/recipe.dart';
 import 'package:food_api/model/recipe_model.dart';
-import 'package:food_api/screen/filter_screen.dart';
 
-class FoodScreen extends StatefulWidget {
+
+class ResultScreen extends StatefulWidget {
+  final str;
   final foodName;
-
-  FoodScreen(this.foodName);
+  ResultScreen(this.foodName,this.str);
 
   @override
-  _FoodScreenState createState() => _FoodScreenState();
+  _ResultScreenState createState() => _ResultScreenState();
 }
 
-class _FoodScreenState extends State<FoodScreen> {
+class _ResultScreenState extends State<ResultScreen> {
   List<RecipeModel> recipeList = <RecipeModel>[];
-
   @override
   void initState() {
     super.initState();
     getRecipes();
   }
-
   getRecipes() async {
+    String string = 'https://api.edamam.com/api/recipes/v2?type=public&q=${widget.foodName}&app_id=42262e68&app_key=ce16039476ebbb5eec647c6695cd7411' + widget.str;
+    Uri url = Uri.parse(string);
     Recipe recipe = Recipe();
-    await recipe.getRecipes(widget.foodName);
+    await recipe.getRecipes(widget.foodName,name: url);
     recipeList = recipe.recipes;
     setState(() {});
   }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0.0,
           title: Text(
-            widget.foodName + ' List',
+            widget.foodName + ' Result List',
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 22),
           ),
           centerTitle: true,
@@ -116,7 +114,6 @@ class _FoodScreenState extends State<FoodScreen> {
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.filter_list_alt),
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => FilterScreen(widget.foodName)));
           },
         ));
   }
